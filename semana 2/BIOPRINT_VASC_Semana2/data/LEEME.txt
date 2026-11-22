@@ -1,0 +1,2 @@
+La base de datos SQLite se genera aquí cuando se ejecuta el servidor y se guarda una simulación.
+No subas bases de datos locales de estudiantes a GitHub.

@@ -1,0 +1,32 @@
+BIOPRINT-VASC — SEMANA 2 — VERSIÓN CORREGIDA 2.1.0
+
+Si no te funciona después de subirla, sigue esta secuencia:
+
+A) En tu computadora:
+   - Descomprime este ZIP.
+   - Dentro de BIOPRINT_VASC_Semana2_CORREGIDO ejecuta «python app.py».
+   - Abre http://127.0.0.1:8000 y verifica que el aviso diga «Servidor Python conectado».
+   - Los 4 módulos deben funcionar y «Guardar en SQLite» debe crear el historial.
+
+B) En GitHub:
+   - Sube el CONTENIDO de esta carpeta, no el ZIP como único archivo.
+   - En la misma raíz deben quedar app.py, numericos.py, index.html, render.yaml y src/.
+   - Si hay una carpeta contenedora adicional, en Render debes configurar Root Directory con ese nombre.
+
+C) En Render:
+   - Configura como Web Service Python; no Static Site.
+   - Build Command: python -m compileall -q app.py numericos.py
+   - Start Command: python app.py
+   - Health Check: /api/health
+   - El script ya detecta automáticamente PORT y HOST de Render.
+   - Comprueba https://TU-SERVICIO.onrender.com/api/health: debe mostrar ok:true.
+   - Entrega al profesor la URL de Render, NO la vieja URL de GitHub Pages.
+
+D) HISTORIAL / PERSISTENCIA:
+   - SQLite funciona y persiste localmente en el ordenador.
+   - En Render GRATUITO el archivo es TEMPORAL: se puede perder al reiniciar/desplegar.
+   - Para garantizar persistencia en Internet necesitas disco persistente en plan compatible.
+     Se incluye render_persistente_ejemplo.yaml (opcional de pago).
+
+Si después de esto falla, comparte la URL COMPLETA y el texto/captura del error en
+Render → Logs. Sin esos datos no es posible verificar exactamente tu despliegue.

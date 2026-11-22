@@ -1,0 +1,53 @@
+erDiagram
+  CASO_ESTUDIO ||--o{ ESCENARIO : tiene
+  ESCENARIO ||--o{ SIMULACION : se_ejecuta
+  SIMULACION ||--o{ EJECUCION_METODO : compara
+  EJECUCION_METODO ||--o{ ITERACION_RESULTADO : produce
+  SIMULACION ||--o| RESULTADO_RESUMEN : resume
+  CASO_ESTUDIO {
+    string id PK
+    string nombre
+    string modelo_version
+  }
+  ESCENARIO {
+    int id PK
+    string caso_id FK
+    string tipo
+    string parametros_json
+    string fuente_datos
+  }
+  SIMULACION {
+    int id PK
+    int escenario_id FK
+    string fecha
+    string entrada_json
+    string resultado_json
+    string sha256_resultado
+  }
+  EJECUCION_METODO {
+    int id PK
+    int simulacion_id FK
+    string metodo
+    float tolerancia
+    float paso
+    int iteraciones
+    bool convergio
+    float residual
+    float error_abs
+  }
+  ITERACION_RESULTADO {
+    int id PK
+    int ejecucion_id FK
+    int numero
+    string aproximacion_json
+    float residual
+    float error_abs
+  }
+  RESULTADO_RESUMEN {
+    int id PK
+    int simulacion_id FK
+    string referencia_json
+    string metricas_json
+    string interpretacion_numerica
+    string interpretacion_problema
+  }

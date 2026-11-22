@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BIOPRINT-VASC: laboratorio de métodos numéricos aplicado a bioimpresión. Semana 2 UMSA.">
+<title>BIOPRINT-VASC | Laboratorio Numérico · Semana 2</title>
+<link rel="stylesheet" href="src/estilos.css">
+<script defer src="src/oxygen_model.js"></script>
+<script defer src="src/visual.js"></script>
+<script defer src="src/app.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="bar-inner">
+    <a class="brand" href="#inicio" id="brandHome"><span class="brandlogo">◈</span><span><strong>BIOPRINT<span class="brandLight">—VASC</span></strong><small>LABORATORIO NUMÉRICO · UMSA</small></span></a>
+    <nav class="topnav" aria-label="Navegación principal"><button data-action="home" class="active">Inicio</button><button data-action="lab">Simulador</button><button data-action="history">Historial</button></nav>
+    <span class="edition">ENTREGA SEMANA 02</span>
+  </div>
+</header>
+<main class="layout" id="app"><div id="backendStatus" class="backendStatus loading" role="status">Comprobando conexión con el servidor Python…</div>
+  <section id="home" class="view">
+    <div class="hero">
+      <div class="heroText">
+        <div class="eyebrow"><span class="dot"></span> INVESTIGACIÓN COMPUTACIONAL · MÉTODOS NUMÉRICOS</div>
+        <h1>La matemática detrás de los <em>tejidos del futuro.</em></h1>
+        <p>Una plataforma académica para analizar la extrusión, la degradación de hidrogeles, las oscilaciones mecánicas y las señales de sensores mediante métodos numéricos verificables.</p>
+        <div class="heroButtons"><button class="primary" data-action="lab">Abrir laboratorio <span>↗</span></button><a class="heroSecondary" href="#oxygenTitle">Explorar el tejido ↓</a></div>
+      </div>
+      <div class="heroArt" aria-hidden="true">
+        <div class="bioprintGraphic heroConcept">
+          <img src="assets/concepto_sensores.webp" alt="Ilustración conceptual de un hidrogel con microcanales, células y sondas de oxígeno" width="768" height="512" fetchpriority="high">
+          <span class="heroConceptTag">TEJIDO BIOIMPRESO · VISTA CONCEPTUAL</span>
+        </div>
+        <div class="heroCard"><span class="heroCardDot"></span><span>Modelos físicos simplificados<br><b>Datos sintéticos · Sin uso clínico</b></span></div>
+      </div>
+    </div>
+    <section class="quickStory" aria-label="Tres ideas para comprender la vascularización">
+      <div class="storyLead"><span class="eyebrow dark">¿QUÉ ESTAMOS SIMULANDO?</span><strong>Del microcanal al resultado numérico</strong></div>
+      <div class="storySteps">
+        <div><span class="storyCount">01</span><p><b>Suministro</b> · El canal se representa como fuente de oxígeno.</p></div>
+        <div><span class="storyCount">02</span><p><b>Transporte</b> · El oxígeno difunde y se consume dentro del hidrogel.</p></div>
+        <div><span class="storyCount">03</span><p><b>Comparación</b> · Cambiamos la separación y calculamos el perfil.</p></div>
+      </div>
+    </section>
+    <section class="oxygenStudio" aria-labelledby="oxygenTitle">
+      <div class="oxygenHeader">
+        <div class="oxygenIntro"><span class="eyebrow dark">VISUALIZADOR DE INVESTIGACIÓN</span><h2 id="oxygenTitle">Observa cómo se distribuye el oxígeno.</h2><p>Modifica la distancia entre microcanales y observa el perfil normalizado. En una ventana de 2,40 mm, observa cómo cambiar la separación modifica la cantidad de canales y los colores calculados mediante una solución 1D de difusión-consumo. Las células son ilustrativas; no se predice supervivencia.</p></div>
+        <div class="oxygenReadout"><span>CONCENTRACIÓN EN EL PLANO MEDIO</span><strong id="oxygenMin">0,811</strong><small>Valor relativo · sin unidades</small></div>
+      </div>
+      <div class="oxygenGrid">
+        <div class="oxygenLeft"><div class="oxygenViewport">
+          <div class="oxygenViewTop"><span><i class="liveDot"></i> CORTE DE HIDROGEL · MICROCANALES IDEALES</span><span id="oxygenDistance">Separación: 0,30 mm</span></div>
+          <canvas id="oxygenField" width="950" height="370" role="img" aria-label="Mapa de una sección de hidrogel. La distribución de oxígeno depende del modelo matemático y de la separación entre canales."></canvas>
+          <div class="oxygenLegend"><span>Menos oxígeno</span><i class="oxygenSpectrum"></i><span>Más oxígeno</span></div>
+          <div class="fieldKey"><span><i class="keyChannel"></i> Microcanales ideales</span><span><i class="keyCell"></i> Células ilustrativas</span><span><i class="keyThreshold"></i> Isolínea del umbral elegido</span></div>
+        </div>
+        <section class="oxygenSideBySide" aria-label="Comparación de tejido de referencia y geometría actual">
+          <div class="oxygenCompareHeading"><strong>Comparación directa de diseños</strong><span>Ventana miniatura de 1,20 mm · mismos parámetros D y k</span></div>
+          <div class="oxygenMiniGrid">
+            <div class="oxygenMini"><div class="miniCaption"><b>Referencia</b><span>0,30 mm</span></div><canvas id="oxygenReferenceMini" width="360" height="126" role="img" aria-label="Vista miniatura del tejido de referencia con canales separados 0,30 milímetros"></canvas><div class="miniScore">C mín. <strong>0,811</strong></div></div>
+            <div class="oxygenMini"><div class="miniCaption"><b>Diseño explorado</b><span id="oxygenMiniDistance">0,30 mm</span></div><canvas id="oxygenCurrentMini" width="360" height="126" role="img" aria-label="Vista miniatura del tejido bajo la distancia configurada"></canvas><div class="miniScore">C mín. <strong id="oxygenMiniCurrent">0,811</strong></div></div>
+          </div>
+        </section></div>
+        <div class="oxygenControls">
+          <div class="controlHeading"><span class="controlIcon">◎</span><div><strong>Separación entre canales</strong><small>Al separar los canales, aumenta la distancia de difusión.</small></div></div>
+          <input type="range" id="distanceRange" min="0.20" max="0.80" value="0.30" step="0.02" aria-label="Separación entre canales en milímetros">
+          <div class="rangeLabels"><span>0,20 mm</span><b id="rangeValue">0,30 mm</b><span>0,80 mm</span></div>
+          <label class="fieldLabel" for="oxygenThreshold">Umbral exploratorio de concentración <b id="thresholdValue">0,60</b></label>
+          <input type="range" id="oxygenThreshold" min="0.35" max="0.90" value="0.60" step="0.05" aria-label="Umbral ilustrativo para destacar zonas de menor disponibilidad de oxígeno">
+          <div class="fieldMode" role="group" aria-label="Tipo de visualización"><button class="fieldModeBtn active" id="showHeatmap" aria-pressed="true">Gradiente</button><button class="fieldModeBtn" id="showCells" aria-pressed="false">Células</button></div>
+          <div class="metricPair"><div><span>ZONA BAJO UMBRAL</span><strong id="oxygenLowArea">0,0 %</strong><small>Porcentaje de celda periódica ideal (1D)</small></div><div><span>CAMBIO RESPECTO A 0,30 MM</span><strong id="oxygenDelta">0,0 %</strong><small>Variación de C mínima normalizada</small></div></div>
+          <div class="oxygenGraphCard"><span>PERFIL DESDE EL CANAL HASTA EL PLANO MEDIO</span><canvas id="oxygenCurve" width="490" height="142" role="img" aria-label="Curva analítica de concentración frente a distancia desde el canal"></canvas></div>
+          <details class="oxygenHelp">
+            <summary>¿Cómo interpretar esta imagen? <span aria-hidden="true">＋</span></summary>
+            <p><b>Los colores</b> proceden de una concentración calculada: las regiones claras indican mayor concentración y las oscuras, menor concentración. <b>El umbral</b> solo destaca una zona del modelo: no predice muerte celular. Las células y la geometría 3D son ilustrativas.</p>
+          </details>
+          <div class="formulaHint"><span>MODELO RESUELTO ANALÍTICAMENTE</span><code>C(x) = C₀ · cosh[η(L−x)] / cosh(ηL)</code><small>η = √(k/D) · D = 0,002 mm²/s · k = 0,04 s⁻¹ · C₀ = 1</small><small>La escala visual de células y partículas es artística; los colores, el perfil y el porcentaje dependen de las ecuaciones.</small></div>
+          <button class="primary oxygenAction" id="openSensors">Ver simulador de sensores <span>↗</span></button>
+        </div>
+      </div>
+    </section>
+    <div class="sectionTitle"><div><span class="eyebrow dark">CUATRO CASOS DE ESTUDIO</span><h2>Un laboratorio, cuatro preguntas científicas.</h2></div><span class="sectionHint">Interactivos · Normal / Estrés / Mal condicionado</span></div>
+    <div id="homeCards" class="moduleGrid"></div>
+    <p class="s1Link">Continuidad del proyecto: <a href="semana1/index.html" target="_blank" rel="noopener noreferrer">Abrir modelo espacial de oxígeno de la semana 1 ↗</a> (laboratorio de referencia independiente)</p>
+    <section class="homeFooter"><div><b>9 puntos</b><small>Valor de la segunda fase</small></div><div><b>5 familias</b><small>Incluyendo teoría de errores</small></div><div><b>12 escenarios</b><small>4 módulos × 3 condiciones</small></div><div><b>SQLite</b><small>Historial guardado y recuperable</small></div></section>
+  </section>
+  <section id="lab" class="view hidden">
+    <div class="crumb"><button data-action="home">← Panel general</button><span>/</span><span>Simulador</span></div>
+    <div class="labTop"><div><span class="eyebrow dark">LABORATORIO INTERACTIVO</span><h1 id="modTitle">Modelo</h1><p id="modDescription"></p></div><span class="statusBadge">Datos sintéticos</span></div>
+    <div class="moduleTabs" id="moduleTabs" role="tablist" aria-label="Módulos de simulación"></div>
+    <section class="moduleExplainer" aria-label="Explicación ilustrada del módulo">
+      <div class="moduleExplainerArt"><img id="moduleVisual" src="assets/concepto_extrusion.webp" width="768" height="512" alt="Ilustración conceptual del proceso modelado"><span>ILUSTRACIÓN · NO SON DATOS EXPERIMENTALES</span></div>
+      <div class="moduleExplainerText"><span class="eyebrow dark">ANTES DE CALCULAR</span><h2 id="moduleVisualTitle">¿Qué estamos observando?</h2><p id="moduleVisualExplain"></p><div class="explainOutput"><span>¿QUÉ VERÁS EN LOS RESULTADOS?</span><p id="moduleVisualOutput"></p></div></div>
+    </section>
+    <div class="workGrid">
+      <aside class="panel formPanel">
+        <div class="panelHeader"><h2>Configurar experimento</h2><span class="smallTag">PARÁMETROS</span></div>
+        <label class="formLabel" for="scenario">Condición experimental</label>
+        <select id="scenario"><option value="NORMAL">Normal</option><option value="ESTRES">Estrés</option><option value="MAL_CONDICIONADO">Mal condicionado</option></select>
+        <p id="scenarioHint" class="formHint"></p>
+        <form id="parameterForm"><div id="paramFields"></div><div class="actionButtons"><button type="submit" class="primary wide" id="runBtn">Calcular simulación</button><button type="button" id="saveBtn" class="secondary wide" disabled>Guardar en SQLite</button></div></form>
+        <div id="alert" class="alert hidden" role="alert"></div>
+        <div class="sourceNote"><strong>Fuente de parámetros</strong><span>Valores supuestos para ensayos computacionales; no se emplean mediciones de pacientes ni equipos médicos.</span></div>
+      </aside>
+      <div class="results">
+        <div class="metricGrid" id="metrics"></div>
+        <div class="chartPanel panel"><div class="panelHeader"><div><h2 id="chartTitle0">Gráfico del modelo</h2><p id="chartNote0"></p></div><span class="smallTag">FIGURA 01</span></div><canvas id="plot0" width="920" height="350" aria-label="Gráfico de solución numérica"></canvas><div id="legend0" class="plotLegend"></div></div>
+        <div class="chartPanel panel"><div class="panelHeader"><div><h2 id="chartTitle1">Error y comparación</h2><p id="chartNote1"></p></div><span class="smallTag">FIGURA 02</span></div><canvas id="plot1" width="920" height="350" aria-label="Gráfico de error o convergencia"></canvas><div id="legend1" class="plotLegend"></div></div>
+      </div>
+    </div>
+    <section class="panel tablePanel"><div class="panelHeader"><div><h2>Métodos numéricos y errores</h2><p>Selecciona una fila para inspeccionar sus iteraciones o refinamiento.</p></div><span class="smallTag">COMPARACIÓN</span></div><div class="scrollTable"><table><thead><tr><th>Método</th><th>Resultado / indicador</th><th>Referencia</th><th>Error absoluto</th><th>Error (%)</th><th>Iter. / n</th><th>Estado</th></tr></thead><tbody id="methodRows"></tbody></table></div><div id="methodDetails" class="detailsArea"></div></section>
+    <div class="twoCols"><section class="panel interpretation"><span class="eyebrow dark">INTERPRETACIÓN 01</span><h2>Conclusión numérica</h2><p id="numericInterpretation">Ejecuta primero el experimento.</p></section><section class="panel interpretation"><span class="eyebrow dark">INTERPRETACIÓN 02</span><h2>Conclusión del problema biomédico</h2><p id="physicalInterpretation">Ejecuta primero el experimento.</p></section></div>
+    <section class="panel comparePanel"><div class="panelHeader"><div><h2>Comparación entre escenarios</h2><p>Ejecuta automáticamente NORMAL, ESTRÉS y MAL CONDICIONADO con configuraciones reproducibles.</p></div><button id="compareBtn" class="secondary">Comparar los tres</button></div><div id="compareArea" class="compareArea"></div></section>
+  </section>
+  <section id="history" class="view hidden"><div class="crumb"><button data-action="home">← Panel general</button><span>/</span><span>Historial</span></div><div class="sectionTitle historyHead"><div><span class="eyebrow dark">PERSISTENCIA SQLITE</span><h1>Experimentos guardados</h1><p>Abre, recupera y repite una ejecución con sus parámetros, iteraciones y gráficos originales.</p></div><button id="refreshHistory" class="secondary">Actualizar historial</button></div><div id="historyList" class="historyList"></div></section>
+</main>
+<footer class="footer"><div><b>UNIVERSIDAD MAYOR DE SAN ANDRÉS</b><span>Carrera de Informática · Métodos Numéricos · Gestión 2026</span></div><div>BIOPRINT-VASC · Proyecto educativo, sin validación clínica</div></footer>
+</body>
+</html>

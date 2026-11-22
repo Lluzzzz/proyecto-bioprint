@@ -1,0 +1,11 @@
+# Despliegue de demo en Render. El plan FREE tiene almacenamiento efímero: SQLite
+# NO conserva historial tras reinicios/despliegues. Para persistencia duradera,
+# configura un disco en un servicio de pago y BIOPRINT_DB_PATH sobre ese disco.
+services:
+  - type: web
+    name: bioprint-vasc-semana2
+    runtime: python
+    plan: free
+    buildCommand: python -m compileall -q app.py numericos.py
+    startCommand: python app.py
+    healthCheckPath: /api/health
